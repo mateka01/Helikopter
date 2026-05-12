@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Játék Értékelő</title>
+    <title>Játék Hozzáadás</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -12,126 +12,52 @@
 <body class="bg-secondary">
 
     <h1 class="text-center text-light p-3">
-        Játék Értékelő
+        Játék Értékelés
     </h1>
+    <hr>
 
     <div class="container">
-
-        <!-- FORM -->
-
-        <form id="adatform"
-            class="bg-success p-3 rounded">
-
+        <form id="adatform" class="bg-success p-3 rounded">
             <h3>Új játék hozzáadása</h3>
-
-            <input
-                type="text"
-                id="jnev"
-                class="form-control mb-2"
-                placeholder="Játék neve">
-
-            <input
-                type="text"
-                id="jmufaj"
-                class="form-control mb-2"
-                placeholder="Műfaj">
-
-            <input
-                type="text"
-                id="jelerhetoseg"
-                class="form-control mb-2"
-                placeholder="Elérhetőség">
-
+            <input type="text" id="jnev" class="form-control mb-2" placeholder="Játék neve">
+            <input type="text" id="jmufaj" class="form-control mb-2" placeholder="Műfaj">
+            <select name="" id="jelerhetoseg" class="form-select mb-2">
+                <option value="PC">PC</option>
+                <option value="XBOX">Xbox</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="Egyéb">Egyéb</option>
+            </select>
             <p>Értékelés</p>
+            <input type="range" min="1" max="5" step="0.1" id="jertekeles" class="form-range">
+            <p id="rangevissz">Értékelés: 1</p>
 
-            <input
-                type="range"
-                min="1"
-                max="5"
-                step="0.5"
-                id="jertekeles"
-                class="form-range">
-
-            <p id="rangevissz">
-                Értékelés: 1
-            </p>
-
-            <textarea
-                id="jvelemeny"
-                class="form-control mb-2"
-                placeholder="Írj véleményt..."></textarea>
-
-            <button
-                type="submit"
-                class="btn btn-dark">
-                Mentés
-            </button>
-
-            <button
-                type="button"
-                id="betoltes"
-                class="btn btn-warning">
-                Betöltés
-            </button>
-
+            <textarea id="jvelemeny" class="form-control mb-2" placeholder="Írj véleményt..."></textarea>
+            <button type="submit" class="btn btn-dark">Mentés</button>
+            <button type="button" id="betoltes" class="btn btn-warning">Betöltés</button>
         </form>
+        <div id="jatekok" class="row mt-4">
 
-        <!-- JÁTÉKOK -->
-
-        <div id="jatekok"
-            class="row mt-4">
         </div>
-
     </div>
 
     <script>
-
-        // RANGE
-
-        let csuszka =
-            document.getElementById("jertekeles");
-
-        let ertek =
-            document.getElementById("rangevissz");
-
+        let csuszka = document.getElementById("jertekeles");
+        let ertek = document.getElementById("rangevissz");
         csuszka.addEventListener("input", function () {
-
-            ertek.innerText =
-                "Értékelés: " + csuszka.value;
-
+            ertek.innerText = "Értékelés: " + csuszka.value;
         });
-
-        // FORM
-
-        const form =
-            document.getElementById("adatform");
+        const form = document.getElementById("adatform");
 
         form.addEventListener("submit", function (event) {
-
             event.preventDefault();
 
-            const nev =
-                document.getElementById("jnev").value;
+            const nev = document.getElementById("jnev").value;
+            const mufaj = document.getElementById("jmufaj").value;
+            const elerhetoseg = document.getElementById("jelerhetoseg").value;
+            const ertekeles = document.getElementById("jertekeles").value;
+            const velemeny = document.getElementById("jvelemeny").value;
 
-            const mufaj =
-                document.getElementById("jmufaj").value;
-
-            const elerhetoseg =
-                document.getElementById("jelerhetoseg").value;
-
-            const ertekeles =
-                document.getElementById("jertekeles").value;
-
-            const velemeny =
-                document.getElementById("jvelemeny").value;
-
-            // meglévő játékok
-
-            let jatekok =
-                JSON.parse(localStorage.getItem("jatekok"))
-                || [];
-
-            // új játék hozzáadása
+            let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
 
             jatekok.push({
                 nev,
@@ -141,8 +67,6 @@
                 velemeny
             });
 
-            // mentés
-
             localStorage.setItem(
                 "jatekok",
                 JSON.stringify(jatekok)
@@ -150,16 +74,11 @@
 
             alert("Játék elmentve!");
 
-            // mezők ürítése
-
             form.reset();
 
-            ertek.innerText =
-                "Értékelés: 1";
+            ertek.innerText = "Értékelés: 1";
 
         });
-
-        // BETÖLTÉS
 
         document.getElementById("betoltes").addEventListener("click", function () {
                 document.getElementById("jatekok").innerHTML = "";
