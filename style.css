@@ -5,3 +5,20 @@ a{
 a:hover{
     color: red;
 }
+
+.zoom-img {
+  overflow: hidden;
+}
+
+.zoom-img {
+  object-fit: cover;
+  transition: all .3s ease;
+}
+
+.zoom-img:hover {
+  transform: scale(1.2);
+}
+
+.szines{
+    background-color: rgb(183, 183, 183);
+}
