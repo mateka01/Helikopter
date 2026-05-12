@@ -1,100 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Játék Értékelő</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-secondary">
-    <h1 class="text-center text-light">Játék Értékelő</h1>
-    <h2>Műfajok</h2>
-    <nav class="bg-dark text-light p-1">
-        <ul class="d-flex justify-content-around">
+
+    <h1 class="text-center text-light p-3">Játék Értékelő</h1>
+
+    <nav class="bg-dark text-light p-2">
+        <ul class="d-flex justify-content-around list-unstyled m-0">
             <li>Kaland</li>
             <li>Akció</li>
         </ul>
     </nav>
+
     <form id="adatform">
-        <div class="container d-flex">
-            <div class="col-12 col-md-6 col-lg-3 text-light m-1">
-                <h2>Szia</h2>
-                <p>Műfaj: kaland</p>
-                <p>Elérhetőség: aha</p>
-                <p>Range</p>
-                <input type="range" min="1" max="5" id="range" step="0.5">
-                <p id="rangevissz"></p>
-                <textarea name="txtarea" id="text" class="bg-light text-dark form-control" placeholder="Írj valami szépet..."></textarea>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 text-light m-1">
-                <h2 id="nevki"></h2>
-                <p id="mufajki"></p>
-                <p id="elerhetosegki"></p>
-                <p>Range</p>
-                <input type="range" min="1" max="5" id="ertekeleski" step="0.5">
-                <p id="rangevissz"></p>
-                <textarea id="text" class="bg-light text-dark form-control" placeholder="Írj valami szépet..."></textarea>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 text-light m-1 bg-success p-2 m-1">
-                <h4 class="text-dark fw-bold ">Adj hozzá játékot</h4>
-                <input type="text" id="jnev" placeholder="Add meg a játék nevét" class="form-control">
-                <input type="text" id="jmufaj" placeholder="A műfaját" class="form-control">
-                <input type="text" id="jelerhetoseg" placeholder="Elérhetőség" class="form-control">
-                <p>Értékelés</p>
-                <input type="range" min="1" max="5" id="range2 jertekeles" step="0.5">
-                <p id="rangevissz2"></p>
-                <textarea id="jvelemeny" class="bg-light text-dark form-control" placeholder="Írj valami szépet..."></textarea>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 text-light bg-dark p-3 rounded">
+                    <h2 id="nevki">Nincs adat</h2>
+                    <p id="mufajki"></p>
+                    <p id="elerhetosegki"></p>
+                    <p id="ertekeleski"></p>
+                    <textarea id="velemenyki" class="form-control" readonly></textarea>
+
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 bg-success p-3 rounded text-dark">
+
+                    <h4 class="fw-bold">Adj hozzá játékot</h4>
+
+                    <input
+                        type="text"
+                        id="jnev"
+                        placeholder="Játék neve"
+                        class="form-control mb-2">
+
+                    <input type="text" id="jmufaj" placeholder="Műfaj"class="form-control mb-2">
+                    <input type="text" id="jelerhetoseg" placeholder="Elérhetőség" class="form-control mb-2">
+                    <p>Értékelés</p>
+                    <input type="range" min="1" max="5" step="0.5" id="jertekeles" class="form-range">
+                    <p id="rangevissz2">Értékelés: 1</p>
+
+                    <textarea id="jvelemeny" class="form-control" placeholder="Írj véleményt..."></textarea>
+
+                </div>
+
             </div>
         </div>
-        <button type="submit">Aha</button>
-        <button id="hozzaadas">Hozzáadás</button>
-        <button id="betoltes">Betöltés</button>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Hozzáadás</button>
+            <button type="button" id="betoltes" class="btn btn-warning">Betöltés</button>
+        </div>
+
     </form>
 
     <script>
-        let csuszka=document.getElementById("range");
-        let ertek=document.getElementById("rangevissz");
-        csuszka.addEventListener("input", function()
-        {
-            ertek.innerText="Értékelés: "+csuszka.value
+
+        // CSÚSZKA
+
+        let csuszka2 = document.getElementById("jertekeles");
+        let ertek2 = document.getElementById("rangevissz2");
+
+        csuszka2.addEventListener("input", function () {
+
+            ertek2.innerText =
+                "Értékelés: " + csuszka2.value;
+
         });
-        let csuszka2=document.getElementById("range2");
-        let ertek2=document.getElementById("rangevissz2");
-        csuszka2.addEventListener("input", function()
-        {
-            ertek2.innerText="Értékelés: "+csuszka2.value
-        });
+
+        // FORM
 
         const form = document.getElementById("adatform");
-        form.addEventListener("submit", function(event){
+
+        form.addEventListener("submit", function (event) {
+
             event.preventDefault();
-            const nev = document.getElementById("jnev").value
-            const mufaj = document.getElementById("jmufaj").value
-            const elerhetoseg = document.getElementById("jelerhetoseg").value
-            const ertekeles = document.getElementById("ertekeles").value
-            const velemeny = document.getElementById("jvelemeny").value
 
-            localStorage.setItem("nev",  nev)
-            localStorage.setItem("mufaj",  mufaj)
-            localStorage.setItem("elerhetoseg",  elerhetoseg)
-            localStorage.setItem("velemeny",  velemeny)
+            const nev =
+                document.getElementById("jnev").value;
 
-            alert("Adatok elmentve")
-        })
-        document.getElementById("betoltes").addEventListener("click", function (){
-            const nev = document.getElementById("jnev").value
-            const mufaj = document.getElementById("jmufaj").value
-            const elerhetoseg = document.getElementById("jelerhetoseg").value
-            const ertekeles = document.getElementById("ertekeles").value
-            const velemeny = document.getElementById("jvelemeny").value
+            const mufaj =
+                document.getElementById("jmufaj").value;
 
-            localStorage.getItem("nev")
-            localStorage.getItem("mufaj")
-            localStorage.getItem("elerhetoseg")
-            localStorage.getItem("velemeny")
+            const elerhetoseg =
+                document.getElementById("jelerhetoseg").value;
 
-                document.getElementById("nevki").innerText = nev
-        })
+            const ertekeles =
+                document.getElementById("jertekeles").value;
+
+            const velemeny =
+                document.getElementById("jvelemeny").value;
+
+            // mentés
+
+            localStorage.setItem("nev", nev);
+            localStorage.setItem("mufaj", mufaj);
+            localStorage.setItem("elerhetoseg", elerhetoseg);
+            localStorage.setItem("ertekeles", ertekeles);
+            localStorage.setItem("velemeny", velemeny);
+
+            alert("Adatok elmentve!");
+
+        });
+
+
+        document.getElementById("betoltes")
+            .addEventListener("click", function () {
+
+                document.getElementById("nevki").innerText =
+                    localStorage.getItem("nev");
+
+                document.getElementById("mufajki").innerText =
+                    "Műfaj: " + localStorage.getItem("mufaj");
+
+                document.getElementById("elerhetosegki").innerText =
+                    "Elérhetőség: " + localStorage.getItem("elerhetoseg");
+
+                document.getElementById("ertekeleski").innerText =
+                    "Értékelés: " + localStorage.getItem("ertekeles");
+
+                document.getElementById("velemenyki").value =
+                    localStorage.getItem("velemeny");
+
+            });
+
     </script>
 
 </body>
