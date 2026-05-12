@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,74 +11,100 @@
 
 <body class="bg-secondary">
 
-    <h1 class="text-center text-light p-3">Játék Értékelő</h1>
+    <h1 class="text-center text-light p-3">
+        Játék Értékelő
+    </h1>
 
-    <nav class="bg-dark text-light p-2">
-        <ul class="d-flex justify-content-around list-unstyled m-0">
-            <li>Kaland</li>
-            <li>Akció</li>
-        </ul>
-    </nav>
+    <div class="container">
 
-    <form id="adatform">
+        <!-- FORM -->
 
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 text-light bg-dark p-3 rounded">
-                    <h2 id="nevki">Nincs adat</h2>
-                    <p id="mufajki"></p>
-                    <p id="elerhetosegki"></p>
-                    <p id="ertekeleski"></p>
-                    <textarea id="velemenyki" class="form-control" readonly></textarea>
+        <form id="adatform"
+            class="bg-success p-3 rounded">
 
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 bg-success p-3 rounded text-dark">
+            <h3>Új játék hozzáadása</h3>
 
-                    <h4 class="fw-bold">Adj hozzá játékot</h4>
+            <input
+                type="text"
+                id="jnev"
+                class="form-control mb-2"
+                placeholder="Játék neve">
 
-                    <input
-                        type="text"
-                        id="jnev"
-                        placeholder="Játék neve"
-                        class="form-control mb-2">
+            <input
+                type="text"
+                id="jmufaj"
+                class="form-control mb-2"
+                placeholder="Műfaj">
 
-                    <input type="text" id="jmufaj" placeholder="Műfaj"class="form-control mb-2">
-                    <input type="text" id="jelerhetoseg" placeholder="Elérhetőség" class="form-control mb-2">
-                    <p>Értékelés</p>
-                    <input type="range" min="1" max="5" step="0.5" id="jertekeles" class="form-range">
-                    <p id="rangevissz2">Értékelés: 1</p>
+            <input
+                type="text"
+                id="jelerhetoseg"
+                class="form-control mb-2"
+                placeholder="Elérhetőség">
 
-                    <textarea id="jvelemeny" class="form-control" placeholder="Írj véleményt..."></textarea>
+            <p>Értékelés</p>
 
-                </div>
+            <input
+                type="range"
+                min="1"
+                max="5"
+                step="0.5"
+                id="jertekeles"
+                class="form-range">
 
-            </div>
+            <p id="rangevissz">
+                Értékelés: 1
+            </p>
+
+            <textarea
+                id="jvelemeny"
+                class="form-control mb-2"
+                placeholder="Írj véleményt..."></textarea>
+
+            <button
+                type="submit"
+                class="btn btn-dark">
+                Mentés
+            </button>
+
+            <button
+                type="button"
+                id="betoltes"
+                class="btn btn-warning">
+                Betöltés
+            </button>
+
+        </form>
+
+        <!-- JÁTÉKOK -->
+
+        <div id="jatekok"
+            class="row mt-4">
         </div>
 
-        <div class="text-center mt-3">
-            <button type="submit" class="btn btn-primary">Hozzáadás</button>
-            <button type="button" id="betoltes" class="btn btn-warning">Betöltés</button>
-        </div>
-
-    </form>
+    </div>
 
     <script>
 
-        // CSÚSZKA
+        // RANGE
 
-        let csuszka2 = document.getElementById("jertekeles");
-        let ertek2 = document.getElementById("rangevissz2");
+        let csuszka =
+            document.getElementById("jertekeles");
 
-        csuszka2.addEventListener("input", function () {
+        let ertek =
+            document.getElementById("rangevissz");
 
-            ertek2.innerText =
-                "Értékelés: " + csuszka2.value;
+        csuszka.addEventListener("input", function () {
+
+            ertek.innerText =
+                "Értékelés: " + csuszka.value;
 
         });
 
         // FORM
 
-        const form = document.getElementById("adatform");
+        const form =
+            document.getElementById("adatform");
 
         form.addEventListener("submit", function (event) {
 
@@ -98,40 +125,72 @@
             const velemeny =
                 document.getElementById("jvelemeny").value;
 
+            // meglévő játékok
+
+            let jatekok =
+                JSON.parse(localStorage.getItem("jatekok"))
+                || [];
+
+            // új játék hozzáadása
+
+            jatekok.push({
+                nev,
+                mufaj,
+                elerhetoseg,
+                ertekeles,
+                velemeny
+            });
+
             // mentés
 
-            localStorage.setItem("nev", nev);
-            localStorage.setItem("mufaj", mufaj);
-            localStorage.setItem("elerhetoseg", elerhetoseg);
-            localStorage.setItem("ertekeles", ertekeles);
-            localStorage.setItem("velemeny", velemeny);
+            localStorage.setItem(
+                "jatekok",
+                JSON.stringify(jatekok)
+            );
 
-            alert("Adatok elmentve!");
+            alert("Játék elmentve!");
+
+            // mezők ürítése
+
+            form.reset();
+
+            ertek.innerText =
+                "Értékelés: 1";
 
         });
 
+        // BETÖLTÉS
 
-        document.getElementById("betoltes")
-            .addEventListener("click", function () {
+        document.getElementById("betoltes").addEventListener("click", function () {
+                document.getElementById("jatekok").innerHTML = "";
+                let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
 
-                document.getElementById("nevki").innerText =
-                    localStorage.getItem("nev");
+                jatekok.forEach(function (jatek, index) {
 
-                document.getElementById("mufajki").innerText =
-                    "Műfaj: " + localStorage.getItem("mufaj");
+                    const ujDiv = document.createElement("div");
 
-                document.getElementById("elerhetosegki").innerText =
-                    "Elérhetőség: " + localStorage.getItem("elerhetoseg");
+                    ujDiv.className = "col-12 col-md-6 col-lg-3 bg-dark text-light p-3 rounded m-2";
 
-                document.getElementById("ertekeleski").innerText =
-                    "Értékelés: " + localStorage.getItem("ertekeles");
+                    ujDiv.innerHTML = `<h2>${jatek.nev}</h2> <p><b>Műfaj:</b> ${jatek.mufaj}</p> <p><b>Elérhetőség:</b> ${jatek.elerhetoseg}</p> <p><b>Értékelés:</b> ${jatek.ertekeles}</p><textarea class="form-control mb-2" readonly>${jatek.velemeny}</textarea><button class="btn btn-danger torles">Törlés</button>`;
 
-                document.getElementById("velemenyki").value =
-                    localStorage.getItem("velemeny");
+                    ujDiv.querySelector(".torles")
+                        .addEventListener("click", function () {
+                            jatekok.splice(index, 1);
+                            localStorage.setItem(
+                                "jatekok",
+                                JSON.stringify(jatekok)
+                            );
+                            ujDiv.remove();
+                        });
+                    document.getElementById("jatekok")
+                        .appendChild(ujDiv);
+
+                });
 
             });
 
     </script>
 
 </body>
+
 </html>
