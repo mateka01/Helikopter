@@ -136,21 +136,27 @@
         <br>
 
         <script>
-            const kedvencCS = document.getElementById("kedvencCS").checked
-            const kedvencDOTA = document.getElementById("kedvencDOTA").checked
-            const kedvencPUBG = document.getElementById("kedvencPUBG").checked
-            const kedvencGTA = document.getElementById("kedvencGTA").checked
-            const kedvencAPEX = document.getElementById("kedvencAPEX").checked
-            const kedvencDF = document.getElementById("kedvencDF").checked
+            const kedvencek = [
+                document.getElementById("kedvencCS"),
+                document.getElementById("kedvencDOTA"),
+                document.getElementById("kedvencPUBG"),
+                document.getElementById("kedvencGTA"),
+                document.getElementById("kedvencAPEX"),
+                document.getElementById("kedvencDF")
+            ];
 
-            const kedvencek = [kedvencCS, kedvencDOTA, kedvencPUBG, kedvencGTA, kedvencAPEX, kedvencDF]
-
-            kedvencek.addEventlistener("checked", function () {
-                for (let i = 0; i < kedvencek.length; i++) {
-                    if (kedvencek[i].checked) {
-                    }
+            kedvencek.forEach(kedvenc => {
+                if (localStorage.getItem(kedvenc.id) === "true") {
+                    kedvenc.checked = true;
                 }
             })
+
+            kedvencek.forEach(kedvenc => {
+                kedvenc.addEventListener("change", function () {
+                    localStorage.setItem(kedvenc.id, kedvenc.checked);
+                })
+            })
+
         </script>
 </body>
 
