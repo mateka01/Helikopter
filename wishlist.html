@@ -16,7 +16,7 @@
     </header>
     <nav class="bg-dark text-light p-1 mb-3">
         <ul class="d-flex justify-content-around">
-            <li><a href="index.html">Könyvtár</a></li>
+            <li><a href="konyvtar.html">Könyvtár</a></li>
             <li><a href="jatekok.html">Új játék hozzáadása</a></li>
             <li>Kedvencek / Kívánság lista (itt vagy)</li>
             <li><a href="news.html">Hírek</a></li>
@@ -42,7 +42,7 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">Counter-Strike 2</h5>
-                    <img src="kepek/cs2.jpg" alt="Counter-Strike 2" width="100%" style="border: 2px solid black" />
+                    <a href="https://www.counter-strike.net/cs2"><img src="kepek/cs2.jpg" alt="Counter-Strike 2" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
@@ -53,7 +53,7 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">Dota 2</h5>
-                    <img src="kepek/dota2.jpg" alt="Dota 2" width="100%" style="border: 2px solid black" />
+                    <a href="https://www.dota2.com/home"><img src="kepek/dota2.jpg" alt="Dota 2" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
@@ -64,7 +64,7 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">PUBG: Battlegrounds</h5>
-                    <img src="kepek/pubg.jpg" alt="PUBG" width="100%" style="border: 2px solid black" />
+                    <a href="https://pubg.com/en"><img src="kepek/pubg.jpg" alt="PUBG" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
@@ -75,7 +75,7 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">Grand Theft Auto V: Legacy</h5>
-                    <img src="kepek/gta.jpg" alt="GTA" width="100%" style="border: 2px solid black" />
+                    <a href="https://www.rockstargames.com/gta-v"><img src="kepek/gta.jpg" alt="GTA" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
@@ -86,7 +86,7 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">Apex Legends</h5>
-                    <img src="kepek/apex.jpg" alt="Apex" width="100%" style="border: 2px solid black" />
+                    <a href="https://www.ea.com/games/apex-legends/apex-legends"><img src="kepek/apex.jpg" alt="Apex" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
@@ -97,17 +97,20 @@
                 `<div class="col-md-4 mb-5 zoom-img">
                 <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
                     <h5 class="fw-bolder">Delta Force</h5>
-                    <img src="kepek/delta.jpg" alt="Delta Force" width="100%" style="border: 2px solid black" />
+                    <a href="https://www.playdeltaforce.com/en/"><img src="kepek/delta.jpg" alt="Delta Force" width="100%" style="border: 2px solid black" /></a>
                 </div>
             </div>`
         }
 
         if (!vankedvenc) {
             jatekokDiv.innerHTML +=
-                `<div class="col-md-4 mb-5">
-                <div class="mx-5 p-3 szines" style="border: 2px solid black; border-radius: 7px;">
-                    <h5 class="fw-bolder">Nincsenek mentett játékaid!</h5>
+                `
+                <div class="row justify-content-center">
+                <div class="col-md-5 mb-5 text-center">
+                <div class="mx-5 p-3 szines text-center" style="border: 2px solid black; border-radius: 7px;">
+                    <h5 class="fw-bolder">❗ Nincsenek mentett játékaid ❗</h5>
                 </div>
+            </div>
             </div>`
         }
     </script>
