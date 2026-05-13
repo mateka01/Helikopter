@@ -16,9 +16,9 @@
     </header>
     <nav class="bg-dark text-light p-1 mb-3">
         <ul class="d-flex justify-content-around">
-            <li>Főoldal (itt vagy)</li>
+            <li>Könyvtár (itt vagy)</li>
             <li><a href="jatekok.html">Új játék hozzáadása</a></li>
-            <li><a href="wishlist.html">Kedvencek / Wishlist</a></li>
+            <li><a href="wishlist.html">Kedvencek / Kívánság lista</a></li>
             <li><a href="news.html">Hírek</a></li>
         </ul>
     </nav>
@@ -143,17 +143,17 @@
                 document.getElementById("kedvencGTA"),
                 document.getElementById("kedvencAPEX"),
                 document.getElementById("kedvencDF")
-            ];
+            ]
 
             kedvencek.forEach(kedvenc => {
                 if (localStorage.getItem(kedvenc.id) === "true") {
-                    kedvenc.checked = true;
+                    kedvenc.checked = true
                 }
             })
 
             kedvencek.forEach(kedvenc => {
                 kedvenc.addEventListener("change", function () {
-                    localStorage.setItem(kedvenc.id, kedvenc.checked);
+                    localStorage.setItem(kedvenc.id, kedvenc.checked)
                 })
             })
 
