@@ -11,9 +11,17 @@
 
 <body class="bg-secondary">
 
-    <h1 class="text-center text-light p-3">
-        Játék Értékelés
-    </h1>
+    <header class="p-3">
+        <h1 class="text-center">Játék Hozzáadás</h1>
+    </header>
+    <nav class="bg-dark text-light p-1 mb-3">
+        <ul class="d-flex justify-content-around">
+            <li><a href="index.html">Főoldal</a></li>
+            <li>>Új játék hozzáadása (itt vagy)</li>
+            <li><a href="wishlist.html">Kedvencek / Wishlist</a></li>
+            <li><a href="news.html">Hírek</a></li>
+        </ul>
+    </nav>
     <hr>
 
     <div class="container">
@@ -29,7 +37,7 @@
             </select>
             <p>Értékelés</p>
             <input type="range" min="1" max="5" step="0.1" id="jertekeles" class="form-range">
-            <p id="rangevissz">Értékelés: 1</p>
+            <p id="rangevissz">Értékelés: </p>
 
             <textarea id="jvelemeny" class="form-control mb-2" placeholder="Írj véleményt..."></textarea>
             <button type="submit" class="btn btn-dark">Mentés</button>
@@ -76,7 +84,7 @@
 
             form.reset();
 
-            ertek.innerText = "Értékelés: 1";
+            ertek.innerText = "Értékelés: ";
 
         });
 
@@ -101,9 +109,7 @@
                             );
                             ujDiv.remove();
                         });
-                    document.getElementById("jatekok")
-                        .appendChild(ujDiv);
-
+                    document.getElementById("jatekok").appendChild(ujDiv);
                 });
 
             });
