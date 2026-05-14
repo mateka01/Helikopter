@@ -42,7 +42,6 @@
 
             <textarea id="jvelemeny" class="form-control mb-2" placeholder="Írj véleményt..."></textarea>
             <button type="submit" class="btn btn-dark">Mentés</button>
-            <button type="button" id="betoltes" class="btn btn-warning">Betöltés</button>
         </form>
         <div id="jatekok" class="row mt-4">
 
@@ -86,33 +85,6 @@
             ertek.innerText = "Értékelés: ";
 
         });
-
-        document.getElementById("betoltes").addEventListener("click", function () {
-                document.getElementById("jatekok").innerHTML = "";
-                let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
-
-                jatekok.forEach(function (jatek, index) {
-
-                    const ujDiv = document.createElement("div");
-
-                    ujDiv.className = "col-12 col-md-6 col-lg-3 bg-dark text-light p-3 rounded m-2 zoom-img";
-
-                    ujDiv.innerHTML = `<h2>${jatek.nev}</h2> <p><b>Műfaj:</b> ${jatek.mufaj}</p> <p><b>Elérhetőség:</b> ${jatek.elerhetoseg}</p> <p><b>Értékelés:</b> ${jatek.ertekeles}</p><textarea class="form-control mb-2" readonly>${jatek.velemeny}</textarea><button class="btn btn-danger torles">Törlés</button>`;
-
-                    ujDiv.querySelector(".torles")
-                        .addEventListener("click", function () {
-                            jatekok.splice(index, 1);
-                            localStorage.setItem(
-                                "jatekok",
-                                JSON.stringify(jatekok)
-                            );
-                            ujDiv.remove();
-                        });
-                    document.getElementById("jatekok").appendChild(ujDiv);
-                });
-
-            });
-
     </script>
 
 </body>
