@@ -162,75 +162,14 @@
         <br>
         <h2 class="mx-5 p-2 text-decoration-underline">ÁLTALAD hozzáadott játékok!</h2>
         <hr />
-        <div class="container">
-            <div id="added" class="d-flex flex-wrap gap-3">
+        <br>
+        <br>
+        <br>
+        <div id="jatekok">
 
-            </div>
         </div>
-        <br>
-        <br>
 
         <script>
-
-            // hozzáadott játék
-
-            let jatekok = JSON.parse(localStorage.getItem("jatekok")) || []
-
-            const added = document.getElementById("added")
-
-            let vanjatek = false
-
-            if (jatekok.length !== 0) {
-                vanjatek = true
-
-                jatekok.forEach((jatek, index) => {
-
-                    const ujDiv = document.createElement("div")
-
-                    ujDiv.className = "bg-dark text-light p-3 rounded"
-
-                    ujDiv.style.width = "300px"
-
-                    ujDiv.innerHTML = `
-                <h2>${jatek.nev}</h2>
-
-                <p>Műfaj: ${jatek.mufaj}</p>
-
-                <p>Elérhetőség: ${jatek.elerhetoseg}</p>
-
-                <p>Értékelés: ${jatek.ertekeles}</p>
-
-                <textarea readonly>${jatek.velemeny}</textarea>
-
-                <br><br>
-
-                <button class="torles btn btn-outline-danger">Törlés</button>`
-
-                    added.appendChild(ujDiv)
-
-                    ujDiv.querySelector(".torles").addEventListener("click", function () {
-
-                        jatekok.splice(index, 1)
-
-                        localStorage.setItem("jatekok", JSON.stringify(jatekok))
-
-                        ujDiv.remove()
-                    })
-                })
-            }
-
-            if (!vanjatek) {
-                added.innerHTML += `
-                <div class="col-md-5 mb-5 text-center">
-                <div class="mx-5 p-3 szines text-center" style="border: 2px solid black; border-radius: 7px;">
-                    <h5 class="fw-bolder text-decoration-underline">❗ Nincsenek mentett játékaid ❗</h5>
-                </div>
-            </div>`
-            }
-
-
-
-            // kedvencek
             const kedvencek = [
                 document.getElementById("kedvencCS"),
                 document.getElementById("kedvencDOTA"),
@@ -252,6 +191,29 @@
                 })
             })
 
+            document.getElementById("jatekok").innerHTML = "";
+                let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
+
+                jatekok.forEach(function (jatek, index) {
+
+                    const ujDiv = document.createElement("div");
+
+                    ujDiv.className = "col-12 col-md-6 col-lg-3 bg-dark text-light p-3 rounded m-2 zoom-img";
+
+                    ujDiv.innerHTML = `<h2>${jatek.nev}</h2> <p><b>Műfaj:</b> ${jatek.mufaj}</p> <p><b>Elérhetőség:</b> ${jatek.elerhetoseg}</p> <p><b>Értékelés:</b> ${jatek.ertekeles}</p><textarea class="form-control mb-2" readonly>${jatek.velemeny}</textarea><button class="btn btn-danger torles">Törlés</button>`;
+
+                    ujDiv.querySelector(".torles")
+                        .addEventListener("click", function () {
+                            jatekok.splice(index, 1);
+                            localStorage.setItem(
+                                "jatekok",
+                                JSON.stringify(jatekok)
+                            );
+                            ujDiv.remove();
+                        });
+                    document.getElementById("jatekok").appendChild(ujDiv);
+
+                });
         </script>
 </body>
 
