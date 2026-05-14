@@ -165,6 +165,9 @@
         <br>
         <br>
         <br>
+        <div id="jatekok">
+
+        </div>
 
         <script>
             const kedvencek = [
@@ -188,6 +191,29 @@
                 })
             })
 
+            document.getElementById("jatekok").innerHTML = "";
+                let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
+
+                jatekok.forEach(function (jatek, index) {
+
+                    const ujDiv = document.createElement("div");
+
+                    ujDiv.className = "col-12 col-md-6 col-lg-3 bg-dark text-light p-3 rounded m-2 zoom-img";
+
+                    ujDiv.innerHTML = `<h2>${jatek.nev}</h2> <p><b>Műfaj:</b> ${jatek.mufaj}</p> <p><b>Elérhetőség:</b> ${jatek.elerhetoseg}</p> <p><b>Értékelés:</b> ${jatek.ertekeles}</p><textarea class="form-control mb-2" readonly>${jatek.velemeny}</textarea><button class="btn btn-danger torles">Törlés</button>`;
+
+                    ujDiv.querySelector(".torles")
+                        .addEventListener("click", function () {
+                            jatekok.splice(index, 1);
+                            localStorage.setItem(
+                                "jatekok",
+                                JSON.stringify(jatekok)
+                            );
+                            ujDiv.remove();
+                        });
+                    document.getElementById("jatekok").appendChild(ujDiv);
+
+                });
         </script>
 </body>
 

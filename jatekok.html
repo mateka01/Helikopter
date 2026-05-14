@@ -68,13 +68,13 @@
 
             let jatekok = JSON.parse(localStorage.getItem("jatekok")) || [];
 
-            ujjatekok.push({
+            const ujjatekok = {
                 nev,
                 mufaj,
                 elerhetoseg,
                 ertekeles,
                 velemeny
-            });
+            };
 
             jatekok.push(ujjatekok)
             localStorage.setItem("jatekok", JSON.stringify(jatekok));
